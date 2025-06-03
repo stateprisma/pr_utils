@@ -5,6 +5,6 @@ version = "0.1.0-dev"
 authors = ["Matheus Xavier"]
 maintainers = ["Matheus Xavier <soft.song@fastmail.net>"]
 maintainers-logins = ["xadaemon"]
-licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
+licenses = "Apache-2.0"
 website = ""
 tags = []
