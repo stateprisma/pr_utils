@@ -1,6 +1,6 @@
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
-package body Press_Utils.String_Tools is
+package body String_Tools is
 
    --  Check if the Source String starts with the Pattern
    function Starts_With (Source, Pattern : String) return Boolean is
@@ -49,4 +49,4 @@ package body Press_Utils.String_Tools is
 
    end Substr;
 
-end Press_Utils.String_Tools;
+end String_Tools;
