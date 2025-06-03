@@ -2,3 +2,7 @@
 /lib/
 /alire/
 /config/
+
+# Ignore commitlint executable
+tools/commitlint*
+
