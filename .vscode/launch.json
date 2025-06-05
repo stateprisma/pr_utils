@@ -1,0 +1,34 @@
+{
+        // Use IntelliSense to learn about possible attributes.
+        // Hover to view descriptions of existing attributes.
+        // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+        "version": "0.2.0",
+        "configurations": [
+                
+                {
+                        "type": "cppdbg",
+                        "name": "Ada: Debug main - src/tests.adb",
+                        "request": "launch",
+                        "cwd": "${workspaceFolder}/tests",
+                        "program": "${workspaceFolder}/tests/bin/tests",
+                        "stopAtEntry": false,
+                        "externalConsole": false,
+                        "args": [],
+                        "MIMode": "gdb",
+                        "preLaunchTask": "ada: Build main - tests/src/tests.adb",
+                        "setupCommands": [
+                                {
+                                        "description": "Enable pretty-printing for gdb",
+                                        "text": "-enable-pretty-printing",
+                                        "ignoreFailures": true
+                                },
+                                {
+                                        "description": "Disable questions on multiple matches",
+                                        "text": "set multiple-symbols cancel",
+                                        "ignoreFailures": false
+                                }
+                        ],
+                        "miDebuggerPath": "/usr/bin/gdb"
+                }
+        ]
+}

@@ -8,4 +8,6 @@ package String_Tools is
    function Substr
      (Source : String; Num : Natural; Dir : Substr_Dir) return String;
 
+   function Contains (Source, Pattern : String) return Boolean;
+
 end String_Tools;

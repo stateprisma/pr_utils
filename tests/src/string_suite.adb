@@ -1,12 +1,12 @@
 with AUnit.Simple_Test_Cases;       use AUnit.Simple_Test_Cases;
-with String_Tools.Test_Starts_With; use String_Tools.Test_Starts_With;
+with String_Tools.Test; use String_Tools.Test;
 
 package body String_Suite is
 
    function Suite return Access_Test_Suite is
       Ret : constant Access_Test_Suite := new Test_Suite;
    begin
-      Ret.Add_Test (Test_Case_Access'(new String_Tools.Test_Starts_With.Test));
+      Ret.Add_Test (Test_Case_Access'(new String_Tools.Test.Test));
       return Ret;
    end Suite;
 
