@@ -1,4 +1,5 @@
-with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
+with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
+with String_Tools.Exceptions; use String_Tools.Exceptions;
 
 package body String_Tools is
 
@@ -70,5 +71,27 @@ package body String_Tools is
       end loop;
       return False;
    end Contains;
+
+   function Index_Of (Source, Pattern : String) return Natural is
+      Sum_Len : Natural;
+   begin
+      if Source'Length < Pattern'Length then
+         raise Index_Of_Exception;
+      elsif Source'Length = Pattern'Length then
+         return Source'First;
+      end if;
+      --  Edge cases are not true, now handle the search
+      for CharN in Source'Range loop
+         Sum_Len := CharN + Pattern'Length - 1;
+         if Source (CharN) = Pattern (Pattern'First)
+           and Sum_Len <= Source'Length
+         then
+            if Source (CharN .. CharN + Pattern'Length - 1) = Pattern then
+               return CharN;
+            end if;
+         end if;
+      end loop;
+      raise Index_Of_Exception;
+   end Index_Of;
 
 end String_Tools;

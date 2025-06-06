@@ -1,4 +1,5 @@
 with AUnit.Assertions; use AUnit.Assertions;
+with String_Tools;
 
 package body String_Tools.Test is
 
@@ -31,7 +32,19 @@ package body String_Tools.Test is
       Assert
         (Starts_With (TStr_3, "--") = False,
          "string doesn't match Starts_With");
-   end Test_Starts_Ends_With; 
+   end Test_Starts_Ends_With;
+
+   procedure Test_index_Of_Throwing is
+      Bogus : Natural;
+   begin
+      Bogus := Index_Of ("Hello@World", "#World");
+   end Test_index_Of_Throwing;
+
+   procedure Test_Index_Of is
+   begin
+      Assert (Index_Of ("Hello@World", "@World") = 6, "Index of");
+      Assert_Exception (Test_index_Of_Throwing'Access, "Not found throws exception");
+   end Test_Index_Of;
 
    overriding
    function Name (T : Test) return AUnit.Message_String is
@@ -46,6 +59,7 @@ package body String_Tools.Test is
       Test_Starts_Ends_With;
       Test_Substr;
       Test_Contains;
+      Test_Index_Of;
    end Run_Test;
 
 end String_Tools.Test;
