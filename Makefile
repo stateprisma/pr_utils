@@ -1,4 +1,3 @@
-ALIRE := alr
 TEST_DIR := tests
 
 

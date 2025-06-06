@@ -8,6 +8,3 @@ maintainers-logins = ["xadaemon"]
 licenses = "Apache-2.0"
 website = ""
 tags = []
-
-[build-switches]
-"*".style_checks = ["-gnatyiIklmnOprs"]

@@ -35,15 +35,17 @@ package body String_Tools.Test is
    end Test_Starts_Ends_With;
 
    procedure Test_index_Of_Throwing is
-      Bogus : Natural;
+      Junk : Natural;
+      pragma Unreferenced (Junk);
    begin
-      Bogus := Index_Of ("Hello@World", "#World");
+      Junk := Index_Of ("Hello@World", "#World");
    end Test_index_Of_Throwing;
 
    procedure Test_Index_Of is
    begin
       Assert (Index_Of ("Hello@World", "@World") = 6, "Index of");
-      Assert_Exception (Test_index_Of_Throwing'Access, "Not found throws exception");
+      Assert_Exception
+        (Test_index_Of_Throwing'Access, "Not found throws exception");
    end Test_Index_Of;
 
    overriding
