@@ -10,9 +10,9 @@ package String_Tools is
 
    function Contains (Source, Pattern : String) return Boolean;
 
-   -- Find the first occurence of Pattern in Source
-   -- if no occurence is found this function raises 
-   -- an exception of type String_Tools.Exceptions.Index_Of_Exception
+   --  Find the first occurence of Pattern in Source
+   --  if no occurence is found this function raises
+   --  an exception of type String_Tools.Exceptions.Index_Of_Exception
    function Index_Of (Source, Pattern : String) return Natural;
 
 end String_Tools;

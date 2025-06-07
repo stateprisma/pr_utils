@@ -62,7 +62,7 @@ package body String_Tools is
       for CharN in Source'Range loop
          Sum_Len := CharN + Pattern'Length - 1;
          if Source (CharN) = Pattern (Pattern'First)
-           and Sum_Len <= Source'Length
+           and then Sum_Len <= Source'Length
          then
             if Source (CharN .. CharN + Pattern'Length - 1) = Pattern then
                return True;
@@ -84,7 +84,7 @@ package body String_Tools is
       for CharN in Source'Range loop
          Sum_Len := CharN + Pattern'Length - 1;
          if Source (CharN) = Pattern (Pattern'First)
-           and Sum_Len <= Source'Length
+           and then Sum_Len <= Source'Length
          then
             if Source (CharN .. CharN + Pattern'Length - 1) = Pattern then
                return CharN;
