@@ -1,7 +1,7 @@
 with Ada.Strings.Unbounded;   use Ada.Strings.Unbounded;
-with String_Tools.Exceptions; use String_Tools.Exceptions;
+with Pr_Utils.String_Tools.Exceptions; use Pr_Utils.String_Tools.Exceptions;
 
-package body String_Tools is
+package body Pr_Utils.String_Tools is
 
    --  Check if the Source String starts with the Pattern
    function Starts_With (Source, Pattern : String) return Boolean is
@@ -25,7 +25,7 @@ package body String_Tools is
    end Ends_With;
 
    function Substr
-     (Source : String; Num : Natural; Dir : Substr_Dir) return String
+     (Source : String; Num : Natural; Dir : Substr_Dir := Left) return String
    is
       Ret_Str : Unbounded_String := To_Unbounded_String (Source'Length);
    begin
@@ -94,4 +94,17 @@ package body String_Tools is
       raise Index_Of_Exception;
    end Index_Of;
 
-end String_Tools;
+   function Hex_To_Ada_Notation (Hex : String) return String is
+   begin
+      if Starts_With (Hex, "0x") then
+         declare
+            Temp_Hex : constant String := Hex (Hex'First + 2 .. Hex'Last);
+         begin
+            return "16#" & Temp_Hex & "#";
+         end;
+      else
+         return "16#" & Hex & "#";
+      end if;
+   end Hex_To_Ada_Notation;
+
+end Pr_Utils.String_Tools;

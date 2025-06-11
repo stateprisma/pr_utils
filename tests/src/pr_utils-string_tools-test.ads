@@ -1,7 +1,7 @@
 with AUnit;
 with AUnit.Simple_Test_Cases;
 
-package String_Tools.Test is
+package Pr_Utils.String_Tools.Test is
 
    type Test is new AUnit.Simple_Test_Cases.Test_Case with null record;
 
@@ -9,4 +9,4 @@ package String_Tools.Test is
 
    overriding procedure Run_Test (T : in out Test);
 
-end String_Tools.Test;
+end Pr_Utils.String_Tools.Test;

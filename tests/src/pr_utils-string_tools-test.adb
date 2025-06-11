@@ -1,7 +1,6 @@
 with AUnit.Assertions; use AUnit.Assertions;
-with String_Tools;
 
-package body String_Tools.Test is
+package body Pr_Utils.String_Tools.Test is
 
    procedure Test_Substr is
       TStr_1 : constant String := "--test--";
@@ -48,6 +47,13 @@ package body String_Tools.Test is
         (Test_index_Of_Throwing'Access, "Not found throws exception");
    end Test_Index_Of;
 
+   procedure Test_Hex_To_Ada_Notation is
+   begin
+      Assert (Hex_To_Ada_Notation ("0xFF") = "16#FF#", "Hex to ada notation");
+      Assert
+        (Hex_To_Ada_Notation ("FF") = "16#FF#", "hex string to ada notation");
+   end Test_Hex_To_Ada_Notation;
+
    overriding
    function Name (T : Test) return AUnit.Message_String is
       pragma Unreferenced (T);
@@ -62,6 +68,7 @@ package body String_Tools.Test is
       Test_Substr;
       Test_Contains;
       Test_Index_Of;
+      Test_Hex_To_Ada_Notation;
    end Run_Test;
 
-end String_Tools.Test;
+end Pr_Utils.String_Tools.Test;

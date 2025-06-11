@@ -6,35 +6,10 @@
         "configurations": [
                 {
                         "type": "cppdbg",
-                        "name": "Ada: Debug main - src/tests.adb",
-                        "request": "launch",
-                        "cwd": "${workspaceFolder}/tests",
-                        "program": "${workspaceFolder}/tests/bin/tests",
-                        "stopAtEntry": false,
-                        "externalConsole": false,
-                        "args": [],
-                        "MIMode": "gdb",
-                        "preLaunchTask": "ada: Build main - tests/src/tests.adb",
-                        "setupCommands": [
-                                {
-                                        "description": "Enable pretty-printing for gdb",
-                                        "text": "-enable-pretty-printing",
-                                        "ignoreFailures": true
-                                },
-                                {
-                                        "description": "Disable questions on multiple matches",
-                                        "text": "set multiple-symbols cancel",
-                                        "ignoreFailures": false
-                                }
-                        ],
-                        "miDebuggerPath": "/usr/bin/gdb"
-                },
-                {
-                        "type": "cppdbg",
                         "name": "Ada: Debug main - argparse_example/src/argparse_example.adb",
                         "request": "launch",
                         "cwd": "${workspaceFolder}",
-                        "program": "${workspaceFolder}/argparse_example/bin/argparse_example",
+                        "program": "${workspaceFolder}/bin/argparse_example",
                         "stopAtEntry": false,
                         "externalConsole": false,
                         "args": [],
@@ -52,7 +27,7 @@
                                         "ignoreFailures": false
                                 }
                         ],
-                        "miDebuggerPath": "/usr/bin/gdb"
+                        "miDebuggerPath": "/home/xadaemon/.local/share/alire/toolchains/gnat_native_14.2.1_06bb3def/bin/gdb"
                 }
         ]
 }
