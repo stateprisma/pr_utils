@@ -68,7 +68,10 @@ package Pr_Utils.Argparse is
    procedure Init_Context (Self : in out Argument_Context);
 
    procedure Add_Arg_Def
-     (Self : in out Argument_Context; Arg_Def : Argument_Def);
+     (Self       : in out Argument_Context;
+      Name       : String;
+      Short_Name : Character := Character'Val (0);
+      Arg_type   : Argument_Type := Bool);
 
    procedure Parse_Args (Self : in out Argument_Context);
 

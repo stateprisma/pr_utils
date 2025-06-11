@@ -16,7 +16,16 @@ package body Pr_Utils.Argparse is
    end Init_Context;
 
    procedure Add_Arg_Def
-     (Self : in out Argument_Context; Arg_Def : Argument_Def) is
+     (Self       : in out Argument_Context;
+      Name       : String;
+      Short_Name : Character := Character'Val (0);
+      Arg_type   : Argument_Type := Bool)
+   is
+      Arg_Def : Argument_Def :=
+        (Arg_Name        => To_Unbounded_String (Name),
+         Arg_ShortName   => Short_Name,
+         Arg_Description => To_Unbounded_String (""),
+         Arg_Type        => Arg_type);
    begin
       Self.Args_Defs.Include (To_String (Arg_Def.Arg_Name), Arg_Def);
       if Arg_Def.Arg_ShortName /= Character'Val (0) then

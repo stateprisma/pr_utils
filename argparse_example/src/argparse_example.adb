@@ -7,16 +7,8 @@ procedure Argparse_Example is
 
 begin
    Arg_Ctx.Init_Context;
-   Arg_Ctx.Add_Arg_Def
-     ((Arg_Name        => To_Unbounded_String ("test"),
-       Arg_ShortName   => 't',
-       Arg_Description => To_Unbounded_String ("test"),
-       Arg_Type        => Bool));
-   Arg_Ctx.Add_Arg_Def
-      ((Arg_Name        => To_Unbounded_String ("named-string"),
-        Arg_ShortName   => 'n',
-        Arg_Description => To_Unbounded_String ("named param"),
-        Arg_Type        => Str));
+   Arg_Ctx.Add_Arg_Def("test", 't', Bool);
+   Arg_Ctx.Add_Arg_Def("named-string", 'n', Str);
 
    Arg_Ctx.Parse_Args;
 
