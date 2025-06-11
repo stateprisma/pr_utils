@@ -78,8 +78,9 @@ package Pr_Utils.Argparse is
    function Contains_Arg_Value
      (Self : in out Argument_Context; Arg_Name : String) return Boolean;
 
-   function Has_Positional_Arg
-      (Self : in out Argument_Context) return Boolean;
+   function Has_Positional_Arg (Self : in out Argument_Context) return Boolean;
+
+   function Pop_Positional_Arg (Self : in out Argument_Context) return String;
 
    function Get_Positional_Arg
      (Self : in out Argument_Context; Pos : Natural) return String;

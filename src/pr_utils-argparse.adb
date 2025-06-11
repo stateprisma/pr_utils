@@ -156,6 +156,14 @@ package body Pr_Utils.Argparse is
       return Self.Pos_Args.Is_Empty;
    end Has_Positional_Arg;
 
+   function Pop_Positional_Arg (Self : in out Argument_Context) return String
+   is
+      Tmp : constant String := To_String (Self.Pos_Args.Last_Element);
+   begin
+      Self.Pos_Args.Delete_Last;
+      return Tmp;
+   end Pop_Positional_Arg;
+
    function Get_Positional_Arg
      (Self : in out Argument_Context; Pos : Natural) return String is
    begin

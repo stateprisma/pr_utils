@@ -20,7 +20,7 @@ begin
 
    Arg_Ctx.Parse_Args;
 
-   if not Arg_Ctx.Contains_Arg_Value("test") then
+   if not Arg_Ctx.Contains_Arg_Value("named-string") then
       Put_Line ("Missing rquired arg");
       return;
    end if;
