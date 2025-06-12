@@ -1,4 +1,5 @@
 with Ada.Command_Line;      use Ada.Command_Line;
+with Ada.Text_IO;
 with Pr_Utils.String_Tools; use Pr_Utils.String_Tools;
 
 package body Pr_Utils.Argparse is
@@ -21,11 +22,12 @@ package body Pr_Utils.Argparse is
       Short_Name : Character := Character'Val (0);
       Arg_type   : Argument_Type := Bool)
    is
-      Arg_Def : Argument_Def :=
+      Arg_Def : constant Argument_Def :=
         (Arg_Name        => To_Unbounded_String (Name),
          Arg_ShortName   => Short_Name,
          Arg_Description => To_Unbounded_String (""),
-         Arg_Type        => Arg_type);
+         Arg_Type        => Arg_type,
+         Multi_Flags     => False);
    begin
       Self.Args_Defs.Include (To_String (Arg_Def.Arg_Name), Arg_Def);
       if Arg_Def.Arg_ShortName /= Character'Val (0) then
@@ -33,6 +35,26 @@ package body Pr_Utils.Argparse is
            ("" & Arg_Def.Arg_ShortName, To_String (Arg_Def.Arg_Name));
       end if;
    end Add_Arg_Def;
+
+   procedure Add_Multi_Flag_Arg
+     (Self : in out Argument_Context; Name : String; Short_Name : Character)
+   is
+      Arg_Def : constant Argument_Def :=
+        (Arg_Name        => To_Unbounded_String (Name),
+         Arg_ShortName   => Short_Name,
+         Arg_Description => To_Unbounded_String (""),
+         Arg_Type        => Bool,
+         Multi_Flags     => True);
+   begin
+      Self.Args_Defs.Include (To_String (Arg_Def.Arg_Name), Arg_Def);
+      if Arg_Def.Arg_ShortName = Character'Val (0) then
+         raise Constraint_Error
+           with "EMultiFlagNoShort, Multiflags require a short name";
+      end if;
+      Self.Args_Defs_Aliases.Include
+        ("" & Arg_Def.Arg_ShortName, To_String (Arg_Def.Arg_Name));
+
+   end Add_Multi_Flag_Arg;
 
    function Arg_String_To_Val
      (Expected_Type : Argument_Type; Str_Value : String) return Argument_Value
@@ -71,6 +93,16 @@ package body Pr_Utils.Argparse is
                 "EInvalidFlag, " & Flag & " is not registered as a valid flag";
          end if;
       end Get_Flag_Type;
+
+      function Is_Multi_Flag return Boolean is
+         Flag : constant String := To_String (Flag_Name);
+      begin
+         if Self.Args_Defs.Contains (Flag) then
+            return Self.Args_Defs (Flag).Multi_Flags;
+         else
+            return False;
+         end if;
+      end Is_Multi_Flag;
 
       procedure Get_Flag_Name_From_Short (Short_Name : String) is
       begin
@@ -113,13 +145,22 @@ package body Pr_Utils.Argparse is
             elsif Starts_With (Curr_Arg, "-") then
                declare
                   Short_Name : constant String :=
-                    (Curr_Arg (Curr_Arg'First + 1 .. Curr_Arg'Length));
+                    (Curr_Arg (Curr_Arg'First + 1 .. Curr_Arg'First + 1));
                begin
                   Get_Flag_Name_From_Short (Short_Name);
                end;
-               --  Flag_Name now should contain the resolved string
+               --  Flag_Name now should contain the resolved full name
                Expected_Type := Get_Flag_Type;
-               if Expected_Type = Bool then
+               if Curr_Arg'Length > 2 and then Is_Multi_Flag then
+                  declare
+                     Sub_Name   : constant String :=
+                       Curr_Arg (Curr_Arg'First + 2 .. Curr_Arg'Length);
+                     Multi_Name : constant String :=
+                       To_String (Flag_Name) & "-" & Sub_Name;
+                  begin
+                     Self.Arg_Vals.Include (Multi_Name, (Bool, True));
+                  end;
+               elsif Expected_Type = Bool then
                   Set_Flag_Value ((Bool, True));
                else
                   Is_Flag_Val := True;
@@ -151,13 +192,27 @@ package body Pr_Utils.Argparse is
    begin
       if Self.Arg_Vals.Contains (Arg_Name) then
          return Self.Arg_Vals (Arg_Name);
-      elsif Self.Args_Defs (Arg_Name).Arg_Type = Bool then
+      elsif Self.Args_Defs.Contains (Arg_Name)
+        and then Self.Args_Defs (Arg_Name).Arg_Type = Bool
+      then
          return (Bool, False);
       else
          raise Constraint_Error
            with "ENoArg, " & Arg_Name & " is not in the received args";
       end if;
    end Get_Arg_Value;
+
+   function Get_Multi_Flag_Value
+     (Self : in out Argument_Context; Arg_Name : String) return Argument_Value
+   is
+   begin
+      begin
+         return Get_Arg_Value (Self, Arg_Name);
+      exception
+         when Junk : Constraint_Error =>
+            return (Bool, False);
+      end;
+   end Get_Multi_Flag_Value;
 
    function Has_Positional_Arg (Self : in out Argument_Context) return Boolean
    is

@@ -4,14 +4,22 @@ with Ada.Strings.Hash;
 with Ada.Strings.Unbounded; use Ada.Strings.Unbounded;
 
 package Pr_Utils.Argparse is
-   type Argument_Style is (Unix, DOS);
    type Argument_Type is (Str, Num, Bool, Hex_Num);
 
    type Argument_Def is record
       Arg_Name        : Unbounded_String;
+      --  Full name for the argument i.e --output
       Arg_ShortName   : Character := Character'Val (0);
+      --  Short name i.e -o
       Arg_Description : Unbounded_String;
+      --  Description for help generation (not implemented yet)
       Arg_Type        : Argument_Type;
+      --  Type for the argument, can be Str, Num, Bool, Hex_Num
+      Multi_Flags     : Boolean;
+      --  Compact form will allow arguments in the form of
+      --  -Wall or -ffreestanding, it will save the argument as
+      --  ffreestanding and theo only supported type for this form
+      --  Bool
    end record;
 
    package Arg_Def_HM is new
@@ -73,10 +81,16 @@ package Pr_Utils.Argparse is
       Short_Name : Character := Character'Val (0);
       Arg_type   : Argument_Type := Bool);
 
+   procedure Add_Multi_Flag_Arg
+     (Self : in out Argument_Context; Name : String; Short_Name : Character);
+
    procedure Parse_Args (Self : in out Argument_Context);
 
    function Get_Arg_Value
      (Self : Argument_Context; Arg_Name : String) return Argument_Value;
+
+   function Get_Multi_Flag_Value
+     (Self : in out Argument_Context; Arg_Name : String) return Argument_Value;
 
    function Contains_Arg_Value
      (Self : in out Argument_Context; Arg_Name : String) return Boolean;
