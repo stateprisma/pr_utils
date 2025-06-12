@@ -1,5 +1,4 @@
 with Ada.Command_Line;      use Ada.Command_Line;
-with Ada.Text_IO;
 with Pr_Utils.String_Tools; use Pr_Utils.String_Tools;
 
 package body Pr_Utils.Argparse is
