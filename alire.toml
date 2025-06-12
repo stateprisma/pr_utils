@@ -1,6 +1,6 @@
 name = "press_utils"
-description = ""
-version = "0.1.0-dev"
+description = "Some utilities and a pretty complete argparse framework"
+version = "1.0.0"
 
 authors = ["Matheus Xavier"]
 maintainers = ["Matheus Xavier <soft.song@fastmail.net>"]
