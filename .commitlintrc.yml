@@ -4,7 +4,7 @@ extends:
 parserPreset: conventional-changelog-conventionalcommits
 rules:
   body-empty:
-    level: warning
+    level: ignore 
   description-empty:
     level: error
   description-format:
