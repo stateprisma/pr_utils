@@ -1,4 +1,4 @@
-with AUnit.Simple_Test_Cases;       use AUnit.Simple_Test_Cases;
+with AUnit.Simple_Test_Cases;    use AUnit.Simple_Test_Cases;
 with Pr_Utils.String_Tools.Test; use Pr_Utils.String_Tools.Test;
 
 package body String_Suite is

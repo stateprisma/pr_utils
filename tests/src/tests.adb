@@ -1,10 +1,15 @@
 with AUnit.Reporter.Text;
 with AUnit.Run;
-with String_Suite; use String_Suite;
+with String_Suite;
+with Math_Suite;
 
 procedure Tests is
-   procedure Runner is new AUnit.Run.Test_Runner (Suite);
+   procedure String_Suite_Runner is new
+     AUnit.Run.Test_Runner (String_Suite.Suite);
+   procedure Math_Suite_Runner is new
+     AUnit.Run.Test_Runner (Math_Suite.Suite);
    Reporter : AUnit.Reporter.Text.Text_Reporter;
 begin
-   Runner (Reporter);
+   String_Suite_Runner (Reporter);
+   Math_Suite_Runner (Reporter);
 end Tests;

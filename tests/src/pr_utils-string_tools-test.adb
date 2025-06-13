@@ -1,4 +1,6 @@
+with Ada.Text_IO;
 with AUnit.Assertions; use AUnit.Assertions;
+with Pr_Utils.Math_Util; use Pr_Utils.Math_Util;
 
 package body Pr_Utils.String_Tools.Test is
 
