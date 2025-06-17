@@ -1,4 +1,5 @@
-with AUnit.Assertions;   use AUnit.Assertions;
+with Ada.Text_IO;
+with AUnit.Assertions; use AUnit.Assertions;
 
 package body Pr_Utils.Math_Util.Test is
 
@@ -15,6 +16,21 @@ package body Pr_Utils.Math_Util.Test is
         (Interval_One = Interval_One_Check, "Produced interval is corrrect");
    end Arrange_Test;
 
+   procedure Derivate_Test is
+      type Long_Float is digits 10;
+      function Test_Func (T : Long_Float) return Long_Float is
+      begin
+         return (T - 4.0)**3 / 64.0 + 3.3;
+      end Test_Func;
+
+      function Derive_Test_Func is new Derivative (Long_Float, Test_Func);
+      function Long_FLoat_Aprx_Eq is new Aproximatelly_Equal (Long_Float);
+   begin
+      Assert
+        (Long_FLoat_Aprx_Eq (Derive_Test_Func (1.0), 0.421875),
+         "");
+   end Derivate_Test;
+
    overriding
    function Name (T : Test) return AUnit.Message_String is
       pragma Unreferenced (T);
@@ -26,6 +42,7 @@ package body Pr_Utils.Math_Util.Test is
    procedure Run_Test (T : in out Test) is
    begin
       Arrange_Test;
+      Derivate_Test;
    end Run_Test;
 
 end Pr_Utils.Math_Util.Test;
